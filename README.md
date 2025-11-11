@@ -1,52 +1,64 @@
-# Payload Cloudflare Template
+# Timeless Wisdom Payload CMS
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/payloadcms/payload/tree/main/templates/with-cloudflare-d1)
+A Next.js application with Payload CMS deployed on Cloudflare Workers.
 
-**This can only be deployed on Paid Workers right now due to size limits.** This template comes configured with the bare minimum to get started on anything you need.
+## Development
 
-## Quick start
+Start the development server:
+```bash
+pnpm dev
+```
 
-This template can be deployed directly to Cloudflare Workers by clicking the button to take you to the setup screen.
+## Deployment
 
-From there you can connect your code to a git provider such Github or Gitlab, name your Workers, D1 Database and R2 Bucket as well as attach any additional environment variables or services you need.
+### Full Deployment (Database + App)
 
-## Quick Start - local setup
+Deploy to development:
+```bash
+pnpm run deploy:development
+```
 
-To spin up this template locally, follow these steps:
+Deploy to staging:
+```bash
+pnpm run deploy:staging
+```
 
-### Clone
+Deploy to production:
+```bash
+pnpm run deploy:production
+```
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. Cloudflare will connect your app to a git provider such as Github and you can access your code from there.
+### App-Only Deployment
 
-### Local Development
+For quick updates without database changes:
 
-## How it works
+```bash
+pnpm run deploy:app:development
+pnpm run deploy:app:staging
+pnpm run deploy:app:production
+```
 
-Out of the box, using [`Wrangler`](https://developers.cloudflare.com/workers/wrangler/) will automatically create local bindings for you to connect to the remote services and it can even create a local mock of the services you're using with Cloudflare.
+### Database-Only Operations
 
-We've pre-configured Payload for you with the following:
+Run migrations only:
+```bash
+CLOUDFLARE_ENV=development pnpm run deploy:db
+CLOUDFLARE_ENV=staging pnpm run deploy:db
+CLOUDFLARE_ENV=production pnpm run deploy:db
+```
 
-### Collections
+## Environment URLs
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+- Development: https://tw-payload-development.flha.workers.dev
+- Staging: https://tw-payload-staging.flha.workers.dev
+- Production: https://tw-payload-production.flha.workers.dev
 
-- #### Users (Authentication)
+## Prerequisites
 
-  Users are auth-enabled collections that have access to the admin panel.
-
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
-
-- #### Media
-
-  This is the uploads enabled collection.
-
-### Image Storage (R2)
-
-Images will be served from an R2 bucket which you can then further configure to use a CDN to serve for your frontend directly.
-
-### D1 Database
-
-The Worker will have direct access to a D1 SQLite database which Wrangler can connect locally to, just note that you won't have a connection string as you would typically with other providers.
+- Node.js 18.20.2+ or 20.9.0+
+- pnpm 9+
+- Cloudflare account with D1 and R2 configured
+- PAYLOAD_SECRET set in Cloudflare Workers environment variables
 
 You can enable read replicas by adding `readReplicas: 'first-primary'` in the DB adapter and then enabling it on your D1 Cloudflare dashboard. Read more about this feature on [our docs](https://payloadcms.com/docs/database/sqlite#d1-read-replicas).
 
