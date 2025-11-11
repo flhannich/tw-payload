@@ -1,7 +1,6 @@
 {
     "$schema": "node_modules/wrangler/config-schema.json",
     "main": ".open-next/worker.js",
-    "name": "tw-payload",
     "compatibility_date": "2025-08-15",
     "compatibility_flags": [
         // Enable Node.js API
@@ -16,6 +15,7 @@
         "binding": "ASSETS"
     },
     "env": {
+        "name": "tw-payload-development",
         "development": {
             "d1_databases": [
                 {
@@ -34,6 +34,7 @@
             ]
         },
         "staging": {
+            "name": "tw-payload-staging",
             "d1_databases": [
                 {
                     "binding": "D1",
@@ -51,6 +52,7 @@
             ]
         },
         "production": {
+            "name": "tw-payload-production",
             "d1_databases": [
                 {
                     "binding": "D1",
