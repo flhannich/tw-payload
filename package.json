@@ -6,6 +6,7 @@
     "type": "module",
     "scripts": {
         "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+        "dev:wrangler": "cross-env NODE_OPTIONS=--no-deprecation wrangler dev --env development --local",
         "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
         "deploy": "pnpm run deploy:db && pnpm run deploy:app",
         "deploy:app": "opennextjs-cloudflare build --env=$CLOUDFLARE_ENV && opennextjs-cloudflare deploy --env=$CLOUDFLARE_ENV",
@@ -38,6 +39,8 @@
         "@payloadcms/richtext-lexical": "3.63.0",
         "@payloadcms/storage-r2": "3.63.0",
         "@payloadcms/ui": "3.63.0",
+        "@squoosh/lib": "^0.5.3",
+        "canvas": "^3.2.0",
         "cross-env": "^7.0.3",
         "dotenv": "16.4.7",
         "graphql": "^16.8.1",

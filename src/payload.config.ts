@@ -10,13 +10,16 @@ import { r2Storage } from '@payloadcms/storage-r2'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Courses } from './collections/Courses'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const cloudflareRemoteBindings = process.env.NODE_ENV === 'production'
+const isProduction = process.env.NODE_ENV === 'production'
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 const cloudflare =
-    process.argv.find((value) => value.match(/^(generate|migrate):?/)) || !cloudflareRemoteBindings
+    process.argv.find((value) => value.match(/^(generate|migrate):?/)) || !isProduction
         ? await getCloudflareContextFromWrangler()
         : await getCloudflareContext({ async: true })
 
@@ -27,7 +30,7 @@ export default buildConfig({
             baseDir: path.resolve(dirname),
         },
     },
-    collections: [Users, Media],
+    collections: [Courses, Users, Media],
     editor: lexicalEditor(),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {
@@ -46,18 +49,25 @@ export default buildConfig({
         // storage-adapter-placeholder
         r2Storage({
             bucket: cloudflare.env.R2,
-            collections: { media: true },
+            collections: {
+                media: {
+                    prefix: 'images',
+                },
+            },
+            ...(isDevelopment && {
+                publicUrl: process.env.R2_PUBLIC_DEV_URL,
+            }),
         }),
     ],
 })
 
 // Adapted from https://github.com/opennextjs/opennextjs-cloudflare/blob/d00b3a13e42e65aad76fba41774815726422cc39/packages/cloudflare/src/api/cloudflare-context.ts#L328C36-L328C46
-function getCloudflareContextFromWrangler(): Promise<CloudflareContext> {
+async function getCloudflareContextFromWrangler(): Promise<CloudflareContext> {
     return import(/* webpackIgnore: true */ `${'__wrangler'.replaceAll('_', '')}`).then(
         ({ getPlatformProxy }) =>
             getPlatformProxy({
-                environment: process.env.CLOUDFLARE_ENV,
-                experimental: { remoteBindings: cloudflareRemoteBindings },
+                environment: process.env.CLOUDFLARE_ENV || 'development',
+                experimental: { remoteBindings: isProduction },
             } satisfies GetPlatformProxyOptions)
     )
 }

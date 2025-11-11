@@ -5,73 +5,53 @@
     "compatibility_date": "2025-08-15",
     "compatibility_flags": [
         // Enable Node.js API
-        // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#nodejs-compatibility-flag
         "nodejs_compat",
         // Allow to fetch URLs in your app
-        // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#global-fetch-strictly-public
         "global_fetch_strictly_public"
     ],
     "assets": {
         "directory": ".open-next/assets",
         "binding": "ASSETS"
     },
-    "vars": {
-        "TURSO_URI": "",
-        "TURSO_AUTH_TOKEN": "",
-        "R2_BUCKET": ""
-    },
-    "r2_buckets": [
-        {
-            "binding": "R2",
-            "bucket_name": "tw-payload-development",
-            "preview_bucket_name": "tw-payload-development"
-        }
-    ],
     "env": {
         "development": {
             "name": "tw-payload-development",
-            "vars": {
-                "TURSO_URI": "libsql://tw-payload-development-florianhannich.aws-eu-west-1.turso.io",
-                "TURSO_AUTH_TOKEN": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3NjI4NjY3NjYsImlkIjoiZGQ5MGU3NzctMTJmZS00N2FhLTgxYjAtY2Q5MmE0ZmU2YzNlIiwicmlkIjoiNjk5YjVkOWEtYmUxOS00ZjQ5LTg4ZGEtYTFmNWYxZDczMzFmIn0.EThqOCoij5Uq2kgUogZooBWGUwGLqs2F6ulfnS3O2iJxAYhoyxs_x78NE86thsJKwR1fhulyPNgmEMweYxm3Bg",
-                "R2_BUCKET": "tw-payload-development"
-            },
             "r2_buckets": [
                 {
                     "binding": "R2",
                     "bucket_name": "tw-payload-development",
                     "preview_bucket_name": "tw-payload-development"
                 }
-            ]
+            ],
+            "images": {
+                "binding": "IMAGES"
+            }
         },
         "staging": {
             "name": "tw-payload-staging",
-            "vars": {
-                "TURSO_URI": "",
-                "TURSO_AUTH_TOKEN": "",
-                "R2_BUCKET": ""
-            },
             "r2_buckets": [
                 {
                     "binding": "R2",
                     "bucket_name": "tw-payload-staging",
                     "preview_bucket_name": "tw-payload-staging"
                 }
-            ]
+            ],
+            "images": {
+                "binding": "IMAGES"
+            }
         },
         "production": {
             "name": "tw-payload-production",
-            "vars": {
-                "TURSO_URI": "",
-                "TURSO_AUTH_TOKEN": "",
-                "R2_BUCKET": ""
-            },
             "r2_buckets": [
                 {
                     "binding": "R2",
                     "bucket_name": "tw-payload-production",
                     "preview_bucket_name": "tw-payload-production"
                 }
-            ]
+            ],
+            "images": {
+                "binding": "IMAGES"
+            }
         }
     }
 }
