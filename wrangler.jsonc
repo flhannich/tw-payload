@@ -11,21 +11,15 @@
         // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#global-fetch-strictly-public
         "global_fetch_strictly_public"
     ],
-    "placement": {
-        "mode": "smart"
-    },
     "assets": {
         "directory": ".open-next/assets",
         "binding": "ASSETS"
     },
-    "d1_databases": [
-        {
-            "binding": "D1",
-            "database_id": "28ee8f28-a8b4-4b60-9874-3835aeb281b9",
-            "database_name": "tw-payload-development",
-            "remote": true
-        }
-    ],
+    "vars": {
+        "TURSO_URI": "",
+        "TURSO_AUTH_TOKEN": "",
+        "R2_BUCKET": ""
+    },
     "r2_buckets": [
         {
             "binding": "R2",
@@ -36,14 +30,11 @@
     "env": {
         "development": {
             "name": "tw-payload-development",
-            "d1_databases": [
-                {
-                    "binding": "D1",
-                    "database_id": "28ee8f28-a8b4-4b60-9874-3835aeb281b9",
-                    "database_name": "tw-payload-development",
-                    "remote": true
-                }
-            ],
+            "vars": {
+                "TURSO_URI": "libsql://tw-payload-development-florianhannich.aws-eu-west-1.turso.io",
+                "TURSO_AUTH_TOKEN": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3NjI4NjY3NjYsImlkIjoiZGQ5MGU3NzctMTJmZS00N2FhLTgxYjAtY2Q5MmE0ZmU2YzNlIiwicmlkIjoiNjk5YjVkOWEtYmUxOS00ZjQ5LTg4ZGEtYTFmNWYxZDczMzFmIn0.EThqOCoij5Uq2kgUogZooBWGUwGLqs2F6ulfnS3O2iJxAYhoyxs_x78NE86thsJKwR1fhulyPNgmEMweYxm3Bg",
+                "R2_BUCKET": "tw-payload-development"
+            },
             "r2_buckets": [
                 {
                     "binding": "R2",
@@ -54,14 +45,11 @@
         },
         "staging": {
             "name": "tw-payload-staging",
-            "d1_databases": [
-                {
-                    "binding": "D1",
-                    "database_id": "1fc89e0f-2f48-4812-b16e-70e4aa7cd855",
-                    "database_name": "tw-payload-staging",
-                    "remote": true
-                }
-            ],
+            "vars": {
+                "TURSO_URI": "",
+                "TURSO_AUTH_TOKEN": "",
+                "R2_BUCKET": ""
+            },
             "r2_buckets": [
                 {
                     "binding": "R2",
@@ -72,14 +60,11 @@
         },
         "production": {
             "name": "tw-payload-production",
-            "d1_databases": [
-                {
-                    "binding": "D1",
-                    "database_id": "86d4fb27-31bc-4444-8ad0-2d332a6a4993",
-                    "database_name": "tw-payload-production",
-                    "remote": true
-                }
-            ],
+            "vars": {
+                "TURSO_URI": "",
+                "TURSO_AUTH_TOKEN": "",
+                "R2_BUCKET": ""
+            },
             "r2_buckets": [
                 {
                     "binding": "R2",

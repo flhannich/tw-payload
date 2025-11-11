@@ -9,10 +9,10 @@
         "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
         "deploy": "pnpm run deploy:db && pnpm run deploy:app",
         "deploy:app": "opennextjs-cloudflare build --env=$CLOUDFLARE_ENV && opennextjs-cloudflare deploy --env=$CLOUDFLARE_ENV",
-        "deploy:db": "cross-env PAYLOAD_SECRET=ignore payload migrate && wrangler d1 execute D1 --command 'PRAGMA optimize' --env=$CLOUDFLARE_ENV --remote",
-        "deploy:development": "cross-env NODE_ENV=development CLOUDFLARE_ENV=development pnpm run deploy",
-        "deploy:staging": "cross-env NODE_ENV=production CLOUDFLARE_ENV=staging pnpm run deploy",
-        "deploy:production": "cross-env NODE_ENV=production CLOUDFLARE_ENV=production pnpm run deploy",
+        "deploy:db": "cross-env PAYLOAD_SECRET=ignore payload migrate",
+        "deploy:development": "cross-env CLOUDFLARE_ENV=development pnpm run deploy",
+        "deploy:staging": "cross-env CLOUDFLARE_ENV=staging pnpm run deploy",
+        "deploy:production": "cross-env CLOUDFLARE_ENV=production pnpm run deploy",
         "deploy:app:development": "cross-env CLOUDFLARE_ENV=development pnpm run deploy:app",
         "deploy:app:staging": "cross-env CLOUDFLARE_ENV=staging pnpm run deploy:app",
         "deploy:app:production": "cross-env CLOUDFLARE_ENV=production pnpm run deploy:app",
@@ -31,8 +31,9 @@
         "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
     },
     "dependencies": {
+        "@libsql/isomorphic-ws": "^0.1.5",
         "@opennextjs/cloudflare": "^1.6.5",
-        "@payloadcms/db-d1-sqlite": "3.63.0",
+        "@payloadcms/db-sqlite": "^3.63.0",
         "@payloadcms/next": "3.63.0",
         "@payloadcms/richtext-lexical": "3.63.0",
         "@payloadcms/storage-r2": "3.63.0",
@@ -43,7 +44,8 @@
         "next": "15.4.7",
         "payload": "3.63.0",
         "react": "19.1.0",
-        "react-dom": "19.1.0"
+        "react-dom": "19.1.0",
+        "web": "link:@libsql/client/web"
     },
     "devDependencies": {
         "@playwright/test": "1.56.1",

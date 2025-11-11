@@ -57,8 +57,10 @@ CLOUDFLARE_ENV=production pnpm run deploy:db
 
 - Node.js 18.20.2+ or 20.9.0+
 - pnpm 9+
-- Cloudflare account with D1 and R2 configured
+- Cloudflare account with R2 configured
+- Turso account with databases created for each environment
 - PAYLOAD_SECRET set in Cloudflare Workers environment variables
+- TURSO_URI and TURSO_AUTH_TOKEN configured for each environment
 
 You can enable read replicas by adding `readReplicas: 'first-primary'` in the DB adapter and then enabling it on your D1 Cloudflare dashboard. Read more about this feature on [our docs](https://payloadcms.com/docs/database/sqlite#d1-read-replicas).
 
